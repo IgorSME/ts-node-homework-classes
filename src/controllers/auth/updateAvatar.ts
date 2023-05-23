@@ -13,23 +13,22 @@ console.log('avatarPath',avatarPath);
 
 class UpdateAvatar{
   updateAvatarHandler = async (req: IUserAuthRequest, res: Response):Promise<void> => {
-    console.log(req.file);
     
     if (!req.file) {
      res.status(400).json({ error: "No file provided" });
      return;
    }
+   
    const { path: tmpUpload, originalname } = req.file;
-   console.log(path);
+   
    
    const { _id: id } = req.user;
    const avatarName = `${id}_${originalname}`;
-   console.log(avatarPath,avatarName)
+  
    try {
    
-   
      const resultUpload:string = path.join(avatarPath, avatarName);
- 
+     console.log(tmpUpload);
      await rename(tmpUpload, resultUpload);
      const avatarURL:string = path.join("public", "avatars", avatarName);
  
